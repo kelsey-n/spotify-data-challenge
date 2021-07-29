@@ -1,0 +1,31 @@
+artist,num_nonexplicit,num_explicit,total_songs
+Adele,7,2,9
+Arctic Monkeys,7,0,7
+Ariana Grande,9,4,13
+Bad Bunny,2,5,7
+Billie Eilish,11,0,11
+Bruno Mars,22,5,27
+Calvin Harris,15,0,15
+Chris Brown,2,6,8
+Drake,5,20,25
+Ed Sheeran,16,0,16
+Frank Ocean,5,5,10
+Harry Styles,8,0,8
+Imagine Dragons,11,1,12
+Juice WRLD,0,8,8
+Justin Bieber,14,0,14
+Kanye West,1,10,11
+Katy Perry,11,0,11
+Kendrick Lamar,0,11,11
+Khalid,7,1,8
+Maroon 5,5,3,8
+Nicki Minaj,4,8,12
+One Direction,19,0,19
+Pitbull,8,1,9
+Post Malone,3,10,13
+Rihanna,13,7,20
+Sam Smith,8,0,8
+Taylor Swift,12,0,12
+The Weeknd,6,7,13
+Travis Scott,1,9,10
+XXXTENTACION,1,10,11
