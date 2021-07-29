@@ -1,0 +1,61 @@
+html, body, #grid-container, #header {
+  height: 100%;
+  margin: 0;
+}
+
+#grid-container {
+  display: grid;
+  grid-template-columns: 300px repeat(2, 1fr);
+  grid-template-rows: 80px 40px repeat(3, 1fr);
+  grid-row-gap: 1px;
+}
+
+.grid-item {
+  background-color: lightgray; /*change to #121212 for dark theme*/
+}
+
+#header {
+  grid-row-start: 1;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  text-align: center;
+  color: #585858;
+  font-size: 55px;
+  font-family: 'Inconsolata', monospace;
+  font-weight: 600;
+  background-color: lightgreen
+}
+
+.sub-header{
+  font-size: 18px;
+  font-family: 'Inconsolata', monospace;
+  font-weight: 400;
+  text-align: center
+}
+
+#sub-header-decade {
+  background-color: green;
+  color: white;
+}
+
+#sub-header-2010s {
+  grid-row-start: 2;
+  grid-column-start: 2;
+  grid-column-end: 4;
+  background-color: seagreen;
+  color: white;
+}
+
+#chart5 {
+  grid-row-start: 4;
+  grid-row-end: 6;
+  grid-column-start: 3;
+  position: relative;
+}
+
+#radio-buttons {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  top: 0
+}
