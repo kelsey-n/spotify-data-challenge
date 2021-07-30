@@ -1,19 +1,11 @@
-name,danceability,energy,speechiness,acousticness,liveness,valence
-lovely (with Khalid),0.35,0.3,0.03,0.93,0.1,0.12
-Lucid Dreams,0.51,0.57,0.2,0.35,0.34,0.22
-Sweater Weather,0.61,0.81,0.03,0.05,0.1,0.4
-Believer,0.78,0.78,0.13,0.06,0.08,0.67
-Streets,0.75,0.46,0.08,0.21,0.34,0.19
-Watermelon Sugar,0.55,0.82,0.05,0.12,0.34,0.56
-Someone You Loved,0.5,0.41,0.03,0.75,0.11,0.45
-Circles,0.7,0.76,0.04,0.19,0.09,0.55
-Arcade,0.45,0.33,0.04,0.82,0.14,0.27
-Golden,0.45,0.84,0.06,0.21,0.13,0.25
-Roses - Imanbek Remix,0.77,0.72,0.05,0.02,0.35,0.9
-Memories,0.76,0.32,0.05,0.84,0.08,0.58
-The Box,0.9,0.59,0.06,0.1,0.79,0.64
-Breaking Me,0.79,0.72,0.22,0.22,0.13,0.66
-bad guy,0.7,0.43,0.38,0.33,0.1,0.56
-Dance Monkey,0.82,0.59,0.09,0.69,0.15,0.51
-Adore You,0.68,0.77,0.05,0.02,0.1,0.57
-goosebumps,0.84,0.73,0.05,0.08,0.15,0.43
+name,acousticness,danceability,energy,liveness,speechiness,valence
+Streets,0.21,0.75,0.46,0.34,0.08,0.19
+Watermelon Sugar,0.12,0.55,0.82,0.34,0.05,0.56
+Sweater Weather,0.05,0.61,0.81,0.1,0.03,0.4
+Someone You Loved,0.75,0.5,0.41,0.11,0.03,0.45
+lovely (with Khalid),0.93,0.35,0.3,0.1,0.03,0.12
+Circles,0.19,0.7,0.76,0.09,0.04,0.55
+Arcade,0.82,0.45,0.33,0.14,0.04,0.27
+Lucid Dreams,0.35,0.51,0.57,0.34,0.2,0.22
+Believer,0.06,0.78,0.78,0.08,0.13,0.67
+Golden,0.21,0.45,0.84,0.13,0.06,0.25
