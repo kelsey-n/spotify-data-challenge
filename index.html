@@ -12,16 +12,42 @@
 
     <div id='grid-container'>
 
-      <div id='header'>Spotify Data</div>
-      <div class="sub-header" id='sub-header-decade'>Songs released over the decades</div>
-      <div class="sub-header" id='sub-header-2010s'>Popular songs of the 2010s</div>
+      <div id='header'><p>Tastes over Time</p> <p style="font-size: 27px;">(an Analysis of Spotify Data)</p></div>
+      <div class="sub-header" id='sub-header-decade'>All songs, all decades</div>
+      <div class="sub-header" id='sub-header-2010s'>Top of the 2010s</div>
       <div class="grid-item" id='chart1'></div>
-      <div class="grid-item" id='chart4'></div>
-      <div class="grid-item">6</div>
+      <div class="grid-item" id='chart4'>
+        <!-- Top songs of the 2010s = 100 most popular songs in each year from 2010-2019<br>
+        Top artists of the 2010s = those with the most top songs  -->
+        <div class="grid-item" id="nested-grid-header">
+           <p>Top Songs</p> <p style="font-size: 14px">= 100 most popular songs per year from 2010-2019</p>
+        </div>
+        <div class="nested-grid-item">
+          <br>
+          Explicit Songs:
+          <p style='font-size: 35px'>28%</p></div>
+        <div class="nested-grid-item">
+          <br>
+          Collabs:
+          <p style='font-size: 35px'>30%</p></div>
+        <div class="nested-grid-item">
+          <br>
+          Highest in
+          <p style="color: #00AF91; font-size: 25px; margin: 0">Danceability</p>
+          <p style="color: #F25287; font-size: 25px; margin: 0">Energy</p>
+        </div>
+        <div class="nested-grid-item">
+          <br><br>
+          Lowest in
+          <p style="font-size: 18px; margin: 0">Instrumentalness</p>
+        </div>
+      </div>
+      <!-- <div class="grid-item">6</div> -->
       <div class="grid-item" id='chart2'></div>
-      <div class="grid-item">8</div>
+      <!-- <div class="grid-item" id='radial-chart'> -->
+      <svg class="grid-item" id='radial-chart'></svg>
+      <!-- </div> -->
       <div class="grid-item" id='chart3'></div>
-      <div class="grid-item">9</div>
       <div class="grid-item" id='chart5'>
         <!-- <div id='radio-buttons'>
           <div class="form-check">
@@ -75,8 +101,12 @@
     <script src="https://kit.fontawesome.com/37a64de4b3.js" crossorigin="anonymous"></script>
     <script src="https://cdn.plot.ly/plotly-2.1.0.min.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
+    <!-- Load d3-annotation -->
+    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/scripts.js"></script>
+    <script src="js/d3_scale_radial.js"></script>
+    <script src="js/radial_barchart.js"></script>
 
   </body>
 

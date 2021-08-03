@@ -9,7 +9,8 @@ Promise.all([
   d3.csv("https://raw.githubusercontent.com/kelsey-n/spotify-data-challenge/main/data/pop2010_key.csv", d3.autoType),
   d3.csv("https://raw.githubusercontent.com/kelsey-n/spotify-data-challenge/main/data/explicit_decade.csv", d3.autoType),
   d3.csv("https://raw.githubusercontent.com/kelsey-n/spotify-data-challenge/main/data/num_artists_decade.csv", d3.autoType),
-  d3.csv("https://raw.githubusercontent.com/kelsey-n/spotify-data-challenge/main/data/topartists_explicit.csv", d3.autoType)
+  d3.csv("https://raw.githubusercontent.com/kelsey-n/spotify-data-challenge/main/data/topartists_explicit.csv", d3.autoType),
+  d3.csv("https://raw.githubusercontent.com/kelsey-n/spotify-data-challenge/main/data/topartists_avgvals.csv", d3.autoType)
 ]).then(function(data) {
 
   var all_decade = data[0]
@@ -26,6 +27,8 @@ Promise.all([
   var numartists_decade = data[9];
   var topartists_explicit = data[10]
                               .filter(row => row.total_songs > 12);
+  var topartists_avgvals = data[11]
+                              .filter(row => row.id > 12);
 
   allvars_timeline_decade('chart1', all_decade)
 
@@ -33,7 +36,7 @@ Promise.all([
 
   numartists_decade_timeline('chart3', numartists_decade)
 
-  timeline_subplot('chart4', pop_nonpop_2010)
+  // timeline_subplot('chart4', pop_nonpop_2010)
   //
   // // here create timeline of pattern by year in 2010
   //
@@ -49,17 +52,36 @@ Promise.all([
   // barChart('chart6', key)
   //
   //stackBarChart('chart5', popartists)
-  stackBarChartTEST('chart5', popartists, topartists_explicit)
+  stackBarChartTEST('chart5', popartists, topartists_avgvals)
 
 });
 
 // create variable containing quantitative variables that we want to plot, ranging from 0 to 1:
 var quant = [
   'acousticness', 'danceability', 'energy', 'instrumentalness',
-  //liveness','speechiness',
+  // 'liveness','speechiness', 'explicit', 'collaboration'
   'valence', //'loudness'
 ];
-var colors = d3.schemeCategory10;
+var colors = {
+  'acousticness': '#ff7c43',
+  'danceability': '#00AF91',
+  'energy': '#F25287',
+  'instrumentalness': '#a05195', // CHANGE COLOR
+  'liveness': '#a05195',
+  'speechiness': '#28DF99',
+  'valence': '#ffa600',
+  'explicit': '#FF7A00',
+  'collaboration': '#39A2DB',
+};
+
+// get window size to set distances svg width for radial chart & distance from edge of grid-items
+var windowWidth = window.innerWidth
+var windowHeight = window.innerHeight
+
+document.getElementById('radial-chart').setAttribute("width", ((windowWidth - 300) / 2));
+document.getElementById('radial-chart').setAttribute("height", ((windowHeight - 120) / 3 * 2));
+// document.getElementById('chart4').setAttribute("width", (windowWidth - 300) / 2);
+// document.getElementById('chart4').setAttribute("height", (windowHeight - 120) / 3);
 
 // create a function to turn an array into numbers for varying opacity
 function opacityBreaks(data) {
@@ -67,16 +89,16 @@ function opacityBreaks(data) {
   var opacityOptions = [0.4, 0.6, 0.8, 1]
   for (let val of data) {
     var opacVal = 0
-    if (val < 74) {
+    if (val < 0.3) {
       opacVal = opacityOptions[0]
     }
-    else if ((val >= 74) && (val < 76)) {
+    else if ((val >= 0.3) && (val < 0.5)) {
       opacVal = opacityOptions[1]
     }
-    else if ((val >= 76) && (val < 80)) {
+    else if ((val >= 0.5) && (val < 0.7)) {
       opacVal = opacityOptions[2]
     }
-    else if (val >= 80) {
+    else if (val >= 0.7) {
       opacVal = opacityOptions[3]
     }
     opacityVals.push(opacVal)
@@ -97,7 +119,7 @@ function allvars_timeline_decade(chartid, dataset) {
       y: dataset.map(row => row[`${quant[i]}`]),
       line: {
         dash: 'solid',
-        color: colors[i],
+        color: colors[quant[i]],
         width: lineSize[i]
       }
     });
@@ -115,7 +137,8 @@ function allvars_timeline_decade(chartid, dataset) {
     showlegend: false,
     yaxis: {
       tickfont: {
-        size: 9
+        size: 9,
+        color: '#ffffffdd'
       },
       showgrid: false,
       showline: true,
@@ -125,8 +148,10 @@ function allvars_timeline_decade(chartid, dataset) {
       side: 'top',
       // visible: false,
       tickfont: {
-        size: 9.5
-      }
+        size: 9.5,
+        color: '#ffffffdd'
+      },
+      showgrid: false,
     },
   annotations: [
     {
@@ -136,39 +161,39 @@ function allvars_timeline_decade(chartid, dataset) {
       yref: 'y',
       text: `Notable &#8593; in<br>& &#8595; in`,
       font: {
-        family: 'monospace',
+        family: 'sans-serif',
         size: 11,
-        color: 'black'
+        color: '#ffffffdd'
       },
       showarrow: false,
       ax: 0,
       ay: 0
     },
       {
-        x: 6.7,
-        y: 0.84,
+        x: 6.4,
+        y: 0.83,
         xref: 'x',
         yref: 'y',
         text: `<b>energy</b>`,
         font: {
-          family: 'monospace',
+          family: 'sans-serif',
           size: 11,
-          color: 'green'
+          color: colors.energy
         },
         showarrow: false,
         ax: 0,
         ay: 0
       },
         {
-          x: 6.7,
-          y: 0.76,
+          x: 6.5,
+          y: 0.775,
           xref: 'x',
           yref: 'y',
           text: `<b>acousticness</b>`,
           font: {
-            family: 'monospace',
+            family: 'sans-serif',
             size: 11,
-            color: 'blue'
+            color: colors.acousticness
           },
           showarrow: false,
           ax: 0,
@@ -193,7 +218,7 @@ function explicit_decade_timeline(chartid, dataset) {
     y: dataset.map(row => row.perc_explicit),
     line: {
       dash: 'solid',
-      color: colors[7]
+      color: colors.explicit
     }
   };
 
@@ -209,7 +234,8 @@ function explicit_decade_timeline(chartid, dataset) {
     showlegend: false,
     yaxis: {
       tickfont: {
-        size: 9
+        size: 9,
+        color: '#ffffffdd'
       },
       ticksuffix: '%',
       showgrid: false,
@@ -222,6 +248,7 @@ function explicit_decade_timeline(chartid, dataset) {
         size: 9
       },
       ticklabelposition: 'outside right',
+      showgrid: false,
     },
   annotations: [
     {
@@ -234,7 +261,7 @@ function explicit_decade_timeline(chartid, dataset) {
       text: '<b>Explicit Songs</b>',
       font: {
         size: 14,
-        color: colors[7]
+        color: colors.explicit
       },
       showarrow: false
     },
@@ -245,10 +272,11 @@ function explicit_decade_timeline(chartid, dataset) {
       yref: 'y',
       text: 'Explicit songs made<br>up only 0.2% of all<br>songs in the 1970s...',
       showarrow: true,
+      arrowcolor: '#ffffffdd',
       font: {
-        family: 'monospace',
+        family: 'sans-serif',
         size: 11,
-        color: 'black'
+        color: '#ffffffdd'
       },
       ax: -40,
       ay: -40
@@ -260,10 +288,11 @@ function explicit_decade_timeline(chartid, dataset) {
         yref: 'y',
         text: '...but jumped to<br>12% in the 2010s',
         showarrow: true,
+        arrowcolor: '#ffffffdd',
         font: {
-          family: 'monospace',
+          family: 'sans-serif',
           size: 11,
-          color: 'black'
+          color: '#ffffffdd'
         },
         ax: -70,
         ay: 30
@@ -289,7 +318,7 @@ function numartists_decade_timeline(chartid, dataset) {
     y: dataset.map(row => row.perc_collab),
     line: {
       dash: 'solid',
-      color: colors[8]
+      color: colors.collaboration
     }
   };
 
@@ -305,7 +334,8 @@ function numartists_decade_timeline(chartid, dataset) {
     showlegend: false,
     yaxis: {
       tickfont: {
-        size: 9
+        size: 9,
+        color: '#ffffffdd'
       },
       ticksuffix: '%',
       showgrid: false,
@@ -314,8 +344,10 @@ function numartists_decade_timeline(chartid, dataset) {
     },
     xaxis: {
       tickfont: {
-        size: 9.5
-      }
+        size: 9.5,
+        color: '#ffffffdd'
+      },
+      showgrid: false,
     },
     annotations: [
       {
@@ -328,7 +360,7 @@ function numartists_decade_timeline(chartid, dataset) {
         text: '<b>Collaborations</b>',
         font: {
           size: 14,
-          color: colors[8]
+          color: colors.collaboration
         },
         showarrow: false
       },
@@ -340,9 +372,9 @@ function numartists_decade_timeline(chartid, dataset) {
         text: "Biggest collab was 58<br>artists for Bollywood's<br><em>Monsta Mashup 2019</em>",
         showarrow: false,
         font: {
-          family: 'monospace',
+          family: 'sans-serif',
           size: 11,
-          color: 'black'
+          color: '#ffffffdd'
         },
         ax: -40,
         ay: -40
@@ -635,51 +667,187 @@ function timeline_subplot(chartid, pop_nonpop_2010) {
 
 // TESTING STACK BAR CHART!!!!!!!!
 
-function stackBarChartTEST(chartid, dataset1, dataset2) {
+function stackBarChartTEST(chartid, dataset1, dataset3) {
 
-  trace1 = {
+  var trace1 = {
     type: "bar",
     legendgroup: 'Solo/Collab',
     name: `Solos`,
     y: dataset1.map(row => row.artist),
     x: dataset1.map(row => row.num_solos),
     orientation: 'h',
+    marker: {
+      color: '#39A2DB'
+    }
   };
 
-  trace2 = {
+  var trace2 = {
     type: "bar",
     legendgroup: 'Solo/Collab',
     name: `Collabs`,
     y: dataset1.map(row => row.artist),
     x: dataset1.map(row => row.num_collabs),
     orientation: 'h',
+    marker: {
+      color: '#39A2DB90'
+    }
   };
 
-  trace3 = {
-    type: "bar",
-    legendgroup: 'Explicit/Not Explicit',
-    visible: 'legendonly',
-    name: `Not Explicit`,
-    y: dataset2.map(row => row.artist),
-    x: dataset2.map(row => row.num_nonexplicit),
-    orientation: 'h',
+  var annotations = [
+    {
+      x: 1,
+      xanchor: 'right',
+      y: 1,
+      yanchor: 'bottom',
+      xref: 'paper',
+      yref: 'paper',
+      text: 'Top Artists',
+      showarrow: false,
+      font: {
+        family: 'sans-serif',
+        size: 30,
+        color: '#ffffffcc'
+      },
+      align: 'center',
+    },
+    {
+      x: -0.25,
+      xanchor: 'right',
+      y: 1,
+      yanchor: 'bottom',
+      xref: 'paper',
+      yref: 'paper',
+      text: '<em>Avg Values (Artist Top Songs)</em>',
+      showarrow: false,
+      font: {
+        family: 'sans-serif',
+        size: 13,
+        color: '#ffffffcc',
+      },
+      align: 'center',
+    }
+  ];
+  var artists = dataset3.map(row => row.artists_list)
+  // danceability, energy, acousticness, valence
+  var danceability = dataset3.map(row => row.danceability)
+  var dance_opac = opacityBreaks(danceability)
+  var energy = dataset3.map(row => row.energy)
+  var energy_opac = opacityBreaks(energy)
+  var acousticness = dataset3.map(row => row.acousticness)
+  var acousticness_opac = opacityBreaks(acousticness)
+  var valence = dataset3.map(row => row.valence)
+  var valence_opac = opacityBreaks(valence)
+
+  for (let i = 0; i < 10; i++) {
+    annotations.push({
+      x: -0.4,
+      y: artists[i],
+      xref: 'paper',
+      yref: 'y',
+      text: danceability[i],
+      showarrow: false,
+      font: {
+        size: 14,
+        color: '#ffffffdd'
+      },
+      align: 'center',
+      bgcolor: colors.danceability,
+      opacity: dance_opac[i],
+      'border-radius': 50
+    },
+    {
+      x: -0.55,
+      y: artists[i],
+      xref: 'paper',
+      yref: 'y',
+      text: energy[i],
+      showarrow: false,
+      font: {
+        size: 14,
+        color: '#ffffffdd'
+      },
+      align: 'center',
+      bgcolor: colors.energy,
+      opacity: energy_opac[i],
+    },
+    {
+      x: -0.7,
+      y: artists[i],
+      xref: 'paper',
+      yref: 'y',
+      text: acousticness[i],
+      showarrow: false,
+      font: {
+        size: 14,
+        color: '#ffffffdd'
+      },
+      align: 'center',
+      bgcolor: colors.acousticness,
+      opacity: acousticness_opac[i]
+    },
+    {
+      x: -0.85,
+      y: artists[i],
+      xref: 'paper',
+      yref: 'y',
+      text: valence[i],
+      showarrow: false,
+      font: {
+        size: 14,
+        color: 'black'
+      },
+      align: 'center',
+      bgcolor: colors.valence,
+      opacity: valence_opac[i]
+    },
+  {
+    x: 0,
+    y: artists[i],
+    xref: 'paper',
+    yref: 'y',
+    text: artists[i],
+    showarrow: false,
+    align: 'center',
+    xanchor: 'left',
+    font: {
+      color: '#121212'
+    },
+  });
+  }
+
+  var images = [];
+  var image_urls = {
+    'Bruno Mars': "https://live.staticflickr.com/65535/51343715028_d36c7e7b21_t.jpg", //Bruno
+    'Drake': "https://live.staticflickr.com/65535/51343715038_c5f2be10cb_t.jpg", //Drake
+    'Rihanna': "https://live.staticflickr.com/65535/51344508360_a2815529e4_t.jpg", //Rihanna
+    'One Direction': "https://live.staticflickr.com/65535/51344360289_bae2f8632d_t.jpg", //1D
+    'Ed Sheeran': "https://live.staticflickr.com/65535/51343839723_cc423a24a8_t.jpg", //Ed Sheeran
+    'Calvin Harris': "https://live.staticflickr.com/65535/51343611821_cbf648c0c2_t.jpg", //Calvin Harris
+    'Justin Bieber': "https://live.staticflickr.com/65535/51343839733_d337f98dfb_t.jpg", //Justin Bieber
+    'Ariana Grande': "https://live.staticflickr.com/65535/51342898012_fd169e647e_t.jpg", //Ariana Grande
+    'Post Malone': "https://live.staticflickr.com/65535/51342898027_1b88905bda_t.jpg", //Post Malone
+    'The Weeknd': "https://live.staticflickr.com/65535/51344360359_0a75aafb85_t.jpg" //The Weeknd
   };
 
-  trace4 = {
-    type: "bar",
-    legendgroup: 'Explicit/Not Explicit',
-    visible: 'legendonly',
-    name: `Explicit`,
-    y: dataset2.map(row => row.artist),
-    x: dataset2.map(row => row.num_explicit),
-    orientation: 'h',
-  };
+  for (let i = 0; i < 10; i++) {
+    images.push({
+      source: image_urls[artists[i]],
+      xref: "paper",
+      yref: 'y',
+      x: -0.23,
+      y: artists[i],
+      sizex: 1,
+      sizey: 1,
+      align: 'center',
+      yanchor: 'middle'
+    })
+  }
 
-  layout = {
+  var layout = {
     barmode: "stack",
     margin: {
-      t: 0, //top margin
-      l: 200, //left margin
+      t: 40, //top margin
+      l: 300, //left margin
       r: 0, //right margin
       b: 20 //bottom margin
     },
@@ -687,57 +855,34 @@ function stackBarChartTEST(chartid, dataset1, dataset2) {
     plot_bgcolor: 'rgba(0,0,0,0)',
     showlegend: true,
     legend: {
-      itemclick: 'toggleothers',
+      x: 1,
+      xanchor: 'right',
+      y: 0,
+      font: {
+        color: '#ffffffdd'
+      }
     },
     yaxis: {
-      tickfont: {
-        size: 9
-      },
+      showticklabels: false,
       showgrid: false,
       autorange: 'reversed',
     },
     xaxis: {
       tickfont: {
-        size: 9
+        size: 9,
+        color: '#ffffffdd'
       },
-      showgrid: false,
+      showgrid: true,
     },
-    annotations: [
-      {
-        x: -0.45,
-        y: 'Bruno Mars',
-        xref: 'paper',
-        yref: 'y',
-        text: '0.4',
-        showarrow: false,
-        font: {
-          family: 'Courier New, monospace',
-          size: 14,
-          color: '#ffffff'
-        },
-        align: 'center',
-        bgcolor: '#ff7f0e',
-        opacity: 0.8
-      }
-    ],
-    images: [
-      {
-        source: "https://github.com/kelsey-n/spotify-data-challenge/blob/main/images/brunouploadtest.jpg?raw=true",
-        xref: "paper",
-        yref: 'y',
-        x: -0.4,
-        y: 'Bruno Mars',
-        sizex: 0.2,
-        sizey: 0.2,
-      }
-    ],
+    annotations: annotations,
+    images: images,
   }
 
   var config =  {
       'displayModeBar': false // this is the line that hides the bar.
     };
 
-  var data = [trace1, trace2, trace3, trace4]
+  var data = [trace1, trace2]
 
   Plotly.newPlot(chartid, data, layout, config);
 }

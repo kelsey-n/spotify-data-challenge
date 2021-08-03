@@ -1,6 +1,7 @@
 html, body, #grid-container, #header {
   height: 100%;
   margin: 0;
+  font-family: sans-serif;
 }
 
 #grid-container {
@@ -8,48 +9,53 @@ html, body, #grid-container, #header {
   grid-template-columns: 300px repeat(2, 1fr);
   grid-template-rows: 80px 40px repeat(3, 1fr);
   grid-row-gap: 1px;
+  grid-column-gap: 1px;
 }
 
 .grid-item {
-  background-color: lightgray; /*change to #121212 for dark theme*/
+  background-color: #121212;
 }
 
 #header {
   grid-row-start: 1;
+  grid-row-end: 2;
   grid-column-start: 1;
   grid-column-end: 4;
   text-align: center;
-  color: #585858;
+  color: seagreen;
   font-size: 55px;
-  font-family: 'Inconsolata', monospace;
-  font-weight: 600;
-  background-color: lightgreen
+  font-family: sans-serif;
+  font-weight: 400;
+  background-color: whitesmoke
+}
+
+#header p {
+  display: inline
 }
 
 .sub-header{
-  font-size: 18px;
-  font-family: 'Inconsolata', monospace;
-  font-weight: 400;
-  text-align: center
-}
-
-#sub-header-decade {
-  background-color: green;
-  color: white;
+  font-size: 28px;
+  font-family: sans-serif;
+  font-style: italic;
+  font-weight: 600;
+  text-align: center;
+  color: #121212;
+  background-color: lightgray;
 }
 
 #sub-header-2010s {
   grid-row-start: 2;
+  grid-row-end: 3;
   grid-column-start: 2;
   grid-column-end: 4;
-  background-color: seagreen;
-  color: white;
+  font-size: 28px;
 }
 
 #chart5 {
-  grid-row-start: 4;
+  grid-row-start: 3;
   grid-row-end: 6;
   grid-column-start: 3;
+  grid-column-end: 4;
   position: relative;
 }
 
@@ -58,4 +64,53 @@ html, body, #grid-container, #header {
   z-index: 2;
   right: 0;
   top: 0
+}
+
+#radial-chart {
+  grid-row-start: 4;
+  grid-row-end: 6;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  font-size: 12px;
+  margin-top: -1px;
+  color: ##ffffffcc;
+}
+
+.annotation text { /* edit style of annotations here */
+  fill: #ffffffdd;
+  font-size: 15px;
+  font-family: monospace;
+}
+
+.annotation-note-title {
+  font-weight: bold;
+}
+
+.annotation path {
+  stroke: rgba(0,0,0,0); /* removes the line on top of the annotation */
+  fill: none;
+}
+
+#chart4 {
+  color: #ffffffcc;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr 3fr;
+  grid-row-gap: 2px;
+  grid-column-gap: 2px;
+}
+
+#nested-grid-header{
+  grid-column-start: 1;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  font-size: 30px
+}
+
+#nested-grid-header p {
+  display: inline
+}
+
+.nested-grid-item{
+  text-align: center;
 }
