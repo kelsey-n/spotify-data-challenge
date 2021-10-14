@@ -1,11 +1,11 @@
-name,acousticness,danceability,energy,liveness,speechiness,valence
-Streets,0.21,0.75,0.46,0.34,0.08,0.19
-Watermelon Sugar,0.12,0.55,0.82,0.34,0.05,0.56
-Sweater Weather,0.05,0.61,0.81,0.1,0.03,0.4
-Someone You Loved,0.75,0.5,0.41,0.11,0.03,0.45
-lovely (with Khalid),0.93,0.35,0.3,0.1,0.03,0.12
-Circles,0.19,0.7,0.76,0.09,0.04,0.55
-Arcade,0.82,0.45,0.33,0.14,0.04,0.27
-Lucid Dreams,0.35,0.51,0.57,0.34,0.2,0.22
-Believer,0.06,0.78,0.78,0.08,0.13,0.67
-Golden,0.21,0.45,0.84,0.13,0.06,0.25
+name,acousticness,danceability,energy,valence
+Streets,0.21,0.75,0.46,0.19
+Watermelon Sugar,0.12,0.55,0.82,0.56
+Sweater Weather,0.05,0.61,0.81,0.4
+Someone You Loved,0.75,0.5,0.41,0.45
+lovely (with Khalid),0.93,0.35,0.3,0.12
+Circles,0.19,0.7,0.76,0.55
+Arcade,0.82,0.45,0.33,0.27
+Lucid Dreams,0.35,0.51,0.57,0.22
+Believer,0.06,0.78,0.78,0.67
+Golden,0.21,0.45,0.84,0.25
