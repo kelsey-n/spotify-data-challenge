@@ -58,7 +58,7 @@ Promise.all([
 
 // create variable containing quantitative variables that we want to plot, ranging from 0 to 1:
 var quant = [
-  'acousticness', 'danceability', 'energy', 'instrumentalness',
+  'acousticness', 'danceability', 'energy', //'instrumentalness',
   // 'liveness','speechiness', 'explicit', 'collaboration'
   'valence', //'loudness'
 ];
@@ -66,11 +66,10 @@ var colors = {
   'acousticness': '#ff7c43',
   'danceability': '#00AF91',
   'energy': '#F25287',
-  'instrumentalness': '#a05195', // CHANGE COLOR
   'liveness': '#a05195',
-  'speechiness': '#28DF99',
+  'speechiness': '#DA0037', // AA2B1D 7B113A(top) DA0037 32FF6A(green, like)
   'valence': '#ffa600',
-  'explicit': '#FF7A00',
+  'explicit': '#1DB954', //FF7A00(great orange)
   'collaboration': '#39A2DB',
 };
 
@@ -78,10 +77,8 @@ var colors = {
 var windowWidth = window.innerWidth
 var windowHeight = window.innerHeight
 
-document.getElementById('radial-chart').setAttribute("width", ((windowWidth - 300) / 2));
+document.getElementById('radial-chart').setAttribute("width", ((windowWidth - 350) / 2));
 document.getElementById('radial-chart').setAttribute("height", ((windowHeight - 120) / 3 * 2));
-// document.getElementById('chart4').setAttribute("width", (windowWidth - 300) / 2);
-// document.getElementById('chart4').setAttribute("height", (windowHeight - 120) / 3);
 
 // create a function to turn an array into numbers for varying opacity
 function opacityBreaks(data) {
@@ -108,7 +105,7 @@ function opacityBreaks(data) {
 
 function allvars_timeline_decade(chartid, dataset) {
   var data = [];
-  var lineSize = [3,1,3,1,1,1,1];
+  var lineSize = [3,1.5,3,1.5];
 
   for (let i = 0; i < quant.length; i++) {
     data.push({
@@ -162,7 +159,7 @@ function allvars_timeline_decade(chartid, dataset) {
       text: `Notable &#8593; in<br>& &#8595; in`,
       font: {
         family: 'sans-serif',
-        size: 11,
+        size: 12,
         color: '#ffffffdd'
       },
       showarrow: false,
@@ -170,14 +167,14 @@ function allvars_timeline_decade(chartid, dataset) {
       ay: 0
     },
       {
-        x: 6.4,
+        x: 6.3,
         y: 0.83,
         xref: 'x',
         yref: 'y',
         text: `<b>energy</b>`,
         font: {
           family: 'sans-serif',
-          size: 11,
+          size: 12,
           color: colors.energy
         },
         showarrow: false,
@@ -185,14 +182,14 @@ function allvars_timeline_decade(chartid, dataset) {
         ay: 0
       },
         {
-          x: 6.5,
+          x: 6.3,
           y: 0.775,
           xref: 'x',
           yref: 'y',
           text: `<b>acousticness</b>`,
           font: {
             family: 'sans-serif',
-            size: 11,
+            size: 12,
             color: colors.acousticness
           },
           showarrow: false,
@@ -344,7 +341,7 @@ function numartists_decade_timeline(chartid, dataset) {
     },
     xaxis: {
       tickfont: {
-        size: 9.5,
+        size: 11,
         color: '#ffffffdd'
       },
       showgrid: false,
@@ -695,7 +692,7 @@ function stackBarChartTEST(chartid, dataset1, dataset3) {
 
   var annotations = [
     {
-      x: 1,
+      x: 0.8,
       xanchor: 'right',
       y: 1,
       yanchor: 'bottom',
@@ -713,8 +710,9 @@ function stackBarChartTEST(chartid, dataset1, dataset3) {
     {
       x: -0.25,
       xanchor: 'right',
-      y: 1,
-      yanchor: 'bottom',
+      y: 0,
+      textangle: 0,
+      yanchor: 'middle',
       xref: 'paper',
       yref: 'paper',
       text: '<em>Avg Values (Artist Top Songs)</em>',
@@ -725,8 +723,77 @@ function stackBarChartTEST(chartid, dataset1, dataset3) {
         color: '#ffffffcc',
       },
       align: 'center',
-    }
+    },
+    {
+      x: -0.4,
+      xanchor: 'left',
+      y: 0.97,
+      textangle: -35,
+      yanchor: 'bottom',
+      xref: 'paper',
+      yref: 'paper',
+      text: 'acousticness',
+      showarrow: false,
+      font: {
+        family: 'sans-serif',
+        size: 12,
+        color: colors.acousticness,
+      },
+      align: 'center',
+    },
+    {
+      x: -0.55,
+      xanchor: 'left',
+      y: 0.97,
+      textangle: -35,
+      yanchor: 'bottom',
+      xref: 'paper',
+      yref: 'paper',
+      text: 'danceability',
+      showarrow: false,
+      font: {
+        family: 'sans-serif',
+        size: 12,
+        color: colors.danceability,
+      },
+      align: 'center',
+    },
+    {
+      x: -0.7,
+      xanchor: 'left',
+      y: 0.97,
+      textangle: -35,
+      yanchor: 'bottom',
+      xref: 'paper',
+      yref: 'paper',
+      text: 'energy',
+      showarrow: false,
+      font: {
+        family: 'sans-serif',
+        size: 12,
+        color: colors.energy,
+      },
+      align: 'center',
+    },
+    {
+      x: -0.85,
+      xanchor: 'left',
+      y: 0.97,
+      textangle: -35,
+      yanchor: 'bottom',
+      xref: 'paper',
+      yref: 'paper',
+      text: 'valence',
+      showarrow: false,
+      font: {
+        family: 'sans-serif',
+        size: 12,
+        color: colors.valence,
+      },
+      align: 'center',
+    },
   ];
+
   var artists = dataset3.map(row => row.artists_list)
   // danceability, energy, acousticness, valence
   var danceability = dataset3.map(row => row.danceability)
@@ -739,8 +806,24 @@ function stackBarChartTEST(chartid, dataset1, dataset3) {
   var valence_opac = opacityBreaks(valence)
 
   for (let i = 0; i < 10; i++) {
-    annotations.push({
+    annotations.push(
+    {
       x: -0.4,
+      y: artists[i],
+      xref: 'paper',
+      yref: 'y',
+      text: acousticness[i],
+      showarrow: false,
+      font: {
+        size: 14,
+        color: '#ffffffdd'
+      },
+      align: 'center',
+      bgcolor: colors.acousticness,
+      opacity: acousticness_opac[i]
+    },
+    {
+      x: -0.55,
       y: artists[i],
       xref: 'paper',
       yref: 'y',
@@ -756,7 +839,7 @@ function stackBarChartTEST(chartid, dataset1, dataset3) {
       'border-radius': 50
     },
     {
-      x: -0.55,
+      x: -0.7,
       y: artists[i],
       xref: 'paper',
       yref: 'y',
@@ -769,21 +852,6 @@ function stackBarChartTEST(chartid, dataset1, dataset3) {
       align: 'center',
       bgcolor: colors.energy,
       opacity: energy_opac[i],
-    },
-    {
-      x: -0.7,
-      y: artists[i],
-      xref: 'paper',
-      yref: 'y',
-      text: acousticness[i],
-      showarrow: false,
-      font: {
-        size: 14,
-        color: '#ffffffdd'
-      },
-      align: 'center',
-      bgcolor: colors.acousticness,
-      opacity: acousticness_opac[i]
     },
     {
       x: -0.85,
@@ -810,7 +878,7 @@ function stackBarChartTEST(chartid, dataset1, dataset3) {
     align: 'center',
     xanchor: 'left',
     font: {
-      color: '#121212'
+      color: '#121212'//'#121212' #ffffffcc
     },
   });
   }

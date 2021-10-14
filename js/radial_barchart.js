@@ -3,7 +3,7 @@ var svg = d3.select("#radial-chart"),
     height = +svg.attr("height"),
     innerRadius = 50,
     outerRadius = Math.min(width, height) / 2.1
-    g = svg.append("g").attr("transform", "translate(" + width / 3 + "," + height / 2 + ")")
+    g = svg.append("g").attr("transform", "translate(" + width / 2.7 + "," + height / 2 + ")")
 
 // var legendsvg = d3.select("#chart4"),
 //     legendwidth = +legendsvg.attr("width"),
@@ -48,18 +48,6 @@ d3.csv("https://raw.githubusercontent.com/kelsey-n/spotify-data-challenge/main/d
           .padAngle(0.01)
           .padRadius(innerRadius))
 
-  var label = g.append("g")
-    .selectAll("g")
-    .data(data)
-    .enter().append("g")
-      .attr("text-anchor", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
-      .attr("transform", function(d) { return "rotate(" + ((x(d.name) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")translate(" + innerRadius + ",0)"; });
-
-  label.append("text")
-      .attr("transform", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
-      .text(function(d) { return d.name; })
-      .attr("alignment-baseline", "middle")
-
   var yAxis = g.append("g")
       .attr("text-anchor", "middle");
 
@@ -91,11 +79,23 @@ d3.csv("https://raw.githubusercontent.com/kelsey-n/spotify-data-challenge/main/d
   //     .attr("dy", "-1em")
   //     .text("Song Value");
 
+  var label = g.append("g")
+    .selectAll("g")
+    .data(data)
+    .enter().append("g")
+      .attr("text-anchor", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "end" : "start"; })
+      .attr("transform", function(d) { return "rotate(" + ((x(d.name) + x.bandwidth() / 2) * 180 / Math.PI - 90) + ")translate(" + innerRadius + ",0)"; });
+
+  label.append("text")
+      .attr("transform", function(d) { return (x(d.name) + x.bandwidth() / 2 + Math.PI) % (2 * Math.PI) < Math.PI ? "rotate(180)" : "rotate(0)"; })
+      .text(function(d) { return d.name; })
+      .attr("alignment-baseline", "middle")
+
   var legend = g.append("g")
     .selectAll("g")
     .data(data.columns.slice(1))
     .enter().append("g")
-      .attr("transform", function(d, i) { return "translate(" + width/2.3 +"," + (i - (data.columns.length -1) / 2) * 20 + ")"; });
+      .attr("transform", function(d, i) { return "translate(" + width/2.5 +"," + (i - (data.columns.length -1) / 2) * 27 + ")"; });
 
   legend.append("rect")
       .attr("width", 18)
@@ -103,9 +103,9 @@ d3.csv("https://raw.githubusercontent.com/kelsey-n/spotify-data-challenge/main/d
       .attr("fill", z);
 
   legend.append("text")
-      .attr("x", 24)
+      .attr("x", 25)
       .attr("y", 9)
-      .attr("dy", "0.35em") //0.35
+      .attr("dy", "0.35em")
       .attr("fill", "#ffffffdd")
       .text(function(d) { return d; });
 
@@ -120,24 +120,11 @@ d3.csv("https://raw.githubusercontent.com/kelsey-n/spotify-data-challenge/main/d
           padding: -15,
         },
         color: ["#ffffffdd"],
-        x: width/3 - 35,
+        x: width/2.7 - 37,
         y: height/2,
         dy: 0,
         dx: 0
       },
-      // {
-      //   note: {
-      //     label: "Top songs of the 2010s = 100 most popular songs in each year from 2010-2019. Top artists of the 2010s = those with the most top songs",
-      //     title: "",
-      //     wrap: 200,
-      //     padding: -15,
-      //   },
-      //   color: ["#ffffffdd"],
-      //   x: 0, //width/3 - 35,
-      //   y: 0, //height/2,
-      //   dy: 0,
-      //   dx: 0
-      // }
     ]
 
     // Add annotation to the chart

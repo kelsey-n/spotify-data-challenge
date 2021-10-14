@@ -1,12 +1,12 @@
 html, body, #grid-container, #header {
-  height: 100%;
+  /* height: 100%; */
   margin: 0;
   font-family: sans-serif;
 }
 
 #grid-container {
   display: grid;
-  grid-template-columns: 300px repeat(2, 1fr);
+  grid-template-columns: 350px repeat(2, 1fr);
   grid-template-rows: 80px 40px repeat(3, 1fr);
   grid-row-gap: 1px;
   grid-column-gap: 1px;
@@ -22,11 +22,11 @@ html, body, #grid-container, #header {
   grid-column-start: 1;
   grid-column-end: 4;
   text-align: center;
-  color: seagreen;
+  color: #ffffffee; /*ffffffee*/
   font-size: 55px;
-  font-family: sans-serif;
+  font-family: 'Georama', sans-serif;
   font-weight: 400;
-  background-color: whitesmoke
+  background-color: #1DB954 /* #808080 1DB954*/
 }
 
 #header p {
@@ -35,12 +35,11 @@ html, body, #grid-container, #header {
 
 .sub-header{
   font-size: 28px;
-  font-family: sans-serif;
-  font-style: italic;
+  font-family: 'Georama', sans-serif;
   font-weight: 600;
   text-align: center;
-  color: #121212;
-  background-color: lightgray;
+  color: #121212;/*#121212;*/
+  background-color: lightgray /*lightgray;*/
 }
 
 #sub-header-2010s {
@@ -71,8 +70,9 @@ html, body, #grid-container, #header {
   grid-row-end: 6;
   grid-column-start: 2;
   grid-column-end: 3;
-  font-size: 12px;
+  font-size: 13px;
   margin-top: -1px;
+  margin-right: 0px;
   color: ##ffffffcc;
 }
 
@@ -94,17 +94,17 @@ html, body, #grid-container, #header {
 #chart4 {
   color: #ffffffcc;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /*grid-template-columns: 1fr 1fr 2fr 2fr; */
   grid-template-rows: 1fr 3fr;
-  grid-row-gap: 2px;
-  grid-column-gap: 2px;
+  margin-right: 0px
 }
 
 #nested-grid-header{
   grid-column-start: 1;
   grid-column-end: 5;
   grid-row-start: 1;
-  font-size: 30px
+  font-size: 30px;
+  text-align: center;
 }
 
 #nested-grid-header p {
